@@ -170,7 +170,6 @@ class _HomeDentistaScreenState extends State<HomeDentistaScreen> {
                     child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection('users')
-                          .where('role', isEqualTo: 'Niño')
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -180,7 +179,28 @@ class _HomeDentistaScreenState extends State<HomeDentistaScreen> {
                           );
                         }
 
-                        final docs = snapshot.data?.docs ?? [];
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text('Error al cargar: ${snapshot.error}'),
+                          );
+                        }
+
+                        final todos = snapshot.data?.docs ?? [];
+                        final docs = todos.where((doc) {
+                          final data = doc.data() as Map<String, dynamic>;
+                          final r =
+                              (data['role'] ??
+                                      data['rol'] ??
+                                      data['tipo'] ??
+                                      '')
+                                  .toString()
+                                  .toLowerCase();
+                          return r.contains('nino') ||
+                              r.contains('niño') ||
+                              r.contains('alumno') ||
+                              r.contains('hijo');
+                        }).toList();
+
                         if (docs.isEmpty) {
                           return const Center(
                             child: Text(
