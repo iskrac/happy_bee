@@ -8,8 +8,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.happy_bee"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "com.example.happy_bee" // (mantén tu namespace actual)
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -22,7 +22,7 @@ android {
         applicationId = "com.example.happy_bee"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
